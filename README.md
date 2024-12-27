@@ -58,7 +58,7 @@ bash changeImage.sh
 
 
 画像がない場合、ゲームをすることができない。
-
+画像は例として複数枚入れているが、自身でpythonを動かし、生成してください。
 
 # Documents
 Diffusers0.21.0 
