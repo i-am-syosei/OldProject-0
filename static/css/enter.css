@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-image: url(images/wait.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column; /* 縦に並べる */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  img {
+    width: 20%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: 70px;
+  }
+  
+  .textbox-002 {
+    padding: 8px 10px;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    background: #d9ff00;
+    color: #333;
+    font-size: 1em;
+    line-height: 1.5;
+    margin-top: 30px;
+    margin-bottom: 30px; /* テキストボックスの下に隙間を作る */
+    text-align: center;
+
+  }
+  
+  .textbox-002::placeholder {
+    color: #ff4d00;
+  }
+  
+  .button_solid006 button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 120px;
+    padding: 6px 25px;
+    background: #d75e5e;
+    color: #000000;
+    transition: 0.3s ease-in-out;
+    font-weight: 600;
+    border-radius: 100px;
+    box-shadow: 0 5px 0px #e74a4a, 0 10px 100px #fe4242;
+    text-decoration: none; /* リンクのデフォルトの下線を削除 */
+    margin-top: 10px; /* ボタンの上に隙間を作る */
+  }
+  
+  .button_solid006 button:hover {
+    background: #ffef64;
+    box-shadow: 0 5px 0px #ffe23f, 0 7px 30px #ffe204;
+  }
+  
+  /* スピンボタン消す */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }

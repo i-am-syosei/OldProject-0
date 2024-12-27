@@ -1,0 +1,17 @@
+.title img {
+   width: 100%;
+   height: auto;
+   text-align:center;
+}
+div{
+   text-align:center;
+}
+.solo img,.mulch img,.online img {
+   width: 15%;
+   height: auto;
+   align-items: flex-end
+}
+body {
+   background-image: url("images/homeback.jpg");
+   background-size: 100%;
+ }

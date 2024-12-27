@@ -1,0 +1,68 @@
+body {
+    display: flex;
+    flex-direction: column; /* 上下方向に並べる */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url(images/match.jpg);
+    background-size: 100%;
+    margin: 0;
+}
+
+.textbox-002 {
+    padding: 8px 10px;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    background: #2fc8ff;
+    color: #333;
+    font-size: 1em;
+    line-height: 1.5;
+    margin-top: 250px;
+    margin-bottom: 30px; /* テキストボックスの下に隙間を作る */
+}
+
+.textbox-002::placeholder {
+    color: #999;
+}
+
+#roomCode {
+    text-align: center;
+}
+
+.button_solid006 a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 120px;
+    padding: 6px 25px;
+    background: #6bb6ff;
+    color: #000000;
+    transition: 0.3s ease-in-out;
+    font-weight: 600;
+    border-radius: 100px;
+    box-shadow: 0 5px 0px #4f96f6, 0 10px 100px #4f96f6;
+    text-decoration: none; /* リンクのデフォルトの下線を削除 */
+}
+
+.button_solid006 a:hover {
+    background: #e7ff2f;
+    box-shadow: 0 5px 0px #b7a134, 0 7px 30px #d2ff2f;
+}
+
+.button_solid006 a:active {
+    background: #FF8282;
+    box-shadow: 0 0px 10px #FF8282;
+    box-shadow: 0 5px 0px #CC6262, 0 4px 10px #FF8282;
+}
+
+/* スピンボタン消す */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+  -moz-appearance:textfield;
+}

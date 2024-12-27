@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-image: url(./images/waiting.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column; /* 縦に並べる */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    color: #3fff5c;
+  }
+  
+  
+    .button_solid006 button {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      width: 120px;
+      padding: 6px 25px;
+      background: #949494;
+      color: #000000;
+      transition: 0.3s ease-in-out;
+      font-weight: 600;
+      border-radius: 100px;
+      box-shadow: 0 5px 0px #4b4b4b, 0 10px 100px #b8b8b8;
+      text-decoration: none; /* リンクのデフォルトの下線を削除 /
+      margin-top: 10px; / ボタンの上に隙間を作る */
+    }
+  
+    .button_solid006 button:hover {
+      background: #ffef64;
+      box-shadow: 0 5px 0px #ffe23f, 0 7px 30px #ffe204;
+    }
+    .button_solid006 a:active {
+      background: #FF8282;
+      box-shadow: 0 0px 10px #FF8282;
+      box-shadow: 0 5px 0px #CC6262, 0 4px 10px #FF8282;
+  }
