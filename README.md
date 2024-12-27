@@ -6,9 +6,10 @@ AI神経衰弱とは？
 瞬間記憶力を鍛える練習ができる。(瞬間記憶能力を鍛えるための練習法として連想結合法というものがあります。例:橋、米、車、泥という単語を単体で覚えるのは難しい。しかし、「橋の上で米を食べていると、車が後ろを通り、泥が飛んできた。」と物語で覚えることで容易に記憶できる。)
 
 # DEMO映像
-![AIgif](https://github.com/i-am-syosei/OldProject-0/assets/104332418/d710c6a3-7b6c-4e7a-9356-02d12466586f)
 
-![AIGif (2)](https://github.com/i-am-syosei/OldProject-0/assets/104332418/22a874f1-86fb-4cc8-b7ea-1714713b5892)
+![AIgif](https://github.com/user-attachments/assets/e8cd72ec-bf65-4dac-8ada-43267d6c2661)
+
+![AIGif (2)](https://github.com/user-attachments/assets/03806e1f-6f9b-42c0-9841-e3094d6b3d4b)
 
 
 
