@@ -62,11 +62,14 @@ bash changeImage.sh
 
 # Documents
 Diffusers0.21.0 
-https://github.com/huggingface/diffusers/releases/tag/v0.21.0 
+https://github.com/huggingface/diffusers/releases/tag/v0.21.0
+
 Flask
 https://palletsprojects.com/p/flask/
+
 flask-socketio
 https://flask-socketio.readthedocs.io/en/latest/
+
 mysql-connector-python
 https://pypi.org/project/mysql-connector-python/
 
