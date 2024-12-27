@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>result</title>
+  <link rel="stylesheet" href="../static/css/result.css">
+</head>
+
+<body>
+  <div id="elapsedTime">0:00</div>
+
+  <script>
+    // ローカルストレージから経過時間を取得して表示
+    document.addEventListener('DOMContentLoaded', () => {
+      const elapsedTime = localStorage.getItem('elapsedTime');
+      if (elapsedTime !== null) {
+        document.getElementById('elapsedTime').innerText = elapsedTime;
+      }
+    });
+  </script>
+  <div class="result">
+    <a href="/home"><img src="../static/images/home.png" alt="ホームに戻る"></a>
+  </div>
+  <script src="../static/js/send.js"></script>
+</body>
+
+</html>

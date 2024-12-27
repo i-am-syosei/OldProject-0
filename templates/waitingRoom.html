@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待機所</title>
+    <link rel="stylesheet" href="../static/css/waitingroom.css">
+</head>
+
+<body>
+    <h1>対戦相手を待っています</h1>
+    <label for="keyInput">ルーム番号</label>
+    <p id="roomCode"></p>
+    </nobr>
+
+    <script src="https://fungo.kcg.edu/madoi-20231023/js/madoi.js"></script>
+    <script>
+        const receivedNumber = sessionStorage.getItem('myNumber');
+        const m = new madoi.Madoi("imageflip-" + receivedNumber);
+        console.log(receivedNumber);
+        document.getElementById('roomCode').innerHTML = receivedNumber;
+        var sessionValue = sessionStorage.getItem(receivedNumber);
+        var parsedValue = JSON.parse(sessionValue).shuffledArray;
+
+        m.setHandler("send", no => {
+            m.send("list", parsedValue);
+            window.location.href = "online.html";
+        });
+        function playGame() {
+            window.location.href = "online.html";
+        }
+    </script>
+
+</body>
+
+</html>

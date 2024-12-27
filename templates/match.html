@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/mutch.css">
+    <title>Random Array Display</title>
+</head>
+
+<body>
+    <div class="container">
+        <input type="number" class="textbox-002" id="roomCode" />
+    </div>
+    <span id="lengthError" style="color: red;"></span>
+    <br>
+    <div class="button_solid006" onclick="submitForm()">
+        <a href="#">ルーム作成</a>
+    </div>
+    <div id="logDiv"></div>
+    <br>
+    <div class="button_solid006">
+        <a href="#" onclick="history.back(); return false;">戻る</a>
+    </div>
+    <script>
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function generateShuffledArray() {
+            const suits = ['s', 'd'];
+            const cards = [];
+            const identification = "firstPlayer";
+            const totalNumbers = 100; // 数字の範囲（1から100まで）
+            const numberOfCardsToSelect = 16; // 選択するカードの数
+
+            sessionStorage.setItem("identification", identification);
+
+            // 1から100までの数字を持つ配列を生成
+            const numbersArray = [];
+            for (let j = 1; j <= totalNumbers; j++) {
+                numbersArray.push(j);
+            }
+
+            // ランダムに16個の数字を選ぶ
+            const randomNumbers = [];
+            while (randomNumbers.length < numberOfCardsToSelect) {
+                const randomIndex = Math.floor(Math.random() * numbersArray.length);
+                randomNumbers.push(numbersArray[randomIndex]);
+                numbersArray.splice(randomIndex, 1); // 選ばれた数字を削除して重複を避ける
+            }
+
+            shuffleArray(randomNumbers); // 数字をシャッフルする
+
+            // 選ばれた数字をカードとして生成
+            const shuffledPairs = [];
+            for (let i = 0; i < suits.length; i++) {
+                for (let j = 0; j < numberOfCardsToSelect; j++) {
+                    shuffledPairs.push({
+                        suit: suits[i],
+                        number: randomNumbers[j]
+                    });
+                }
+            }
+
+            shuffleArray(shuffledPairs); // カードをシャッフルする
+
+            console.log(shuffledPairs);
+            return shuffledPairs;
+        }
+
+        function submitForm() {
+            var input = document.getElementById("roomCode");
+            var lengthError = document.getElementById("lengthError");
+
+            // 他にエラーがないか確認
+            if (lengthError.textContent === "") {
+                const roomCode = input.value;
+
+
+                // 既存のデータを取得
+                const existingData = JSON.parse(localStorage.getItem(`${roomCode}`)) || {};
+
+                // 新しいデータを生成
+                const dataToSave = {
+                    roomCode: roomCode,
+                    shuffledArray: generateShuffledArray(),
+                };
+
+                // 既存のデータを更新
+                Object.assign(existingData, dataToSave);
+
+                // データを保存
+                localStorage.setItem(`${roomCode}`, JSON.stringify(existingData));
+
+                // 保存されたデータを表示
+                logLocalStorageData();
+
+                //sessionに配列を維持させる
+                var key = document.getElementById('roomCode').value;
+                var value = localStorage.getItem(key);
+                
+                sessionStorage.setItem(key, value);
+                sessionStorage.setItem('myNumber', key);
+                
+                var sessionValue = sessionStorage.getItem(key);
+                var parsedValue = JSON.parse(sessionValue)
+                window.location.href = "/waitingRoom"
+            } else {
+                alert("フォームにエラーがあります。");
+            }
+        }
+
+        function logLocalStorageData() {
+            const logDiv = document.getElementById("logDiv");
+            logDiv.innerHTML = "";
+
+
+        }
+    </script>
+
+</body>
+
+</html>

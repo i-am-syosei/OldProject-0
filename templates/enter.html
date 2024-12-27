@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/enter.css">
+
+    <title>ルームに入る</title>
+</head>
+
+<body>
+
+    <img src="../static/css/images/in.png" alt="部屋番号を入力">
+    <input type="number" class="textbox-002" id="keyInput" maxlength="4" 　placeholder="数字(4桁)">
+    <div class="button_solid006">
+        <button onclick="getValue()">参加</button>
+    </div>
+
+
+    <script src="https://fungo.kcg.edu/madoi-20231023/js/madoi.js"></script>
+    <script>
+
+        function getValue() {
+            var key = document.getElementById('keyInput').value;
+            const identification = "secondPlayer";
+            sessionStorage.setItem("identification", identification);
+            const m = new madoi.Madoi("imageflip-" + key);
+            m.send("send", key);
+
+            if (/^\d{4}$/.test(key)) {
+                var value = localStorage.getItem(key);
+                sessionStorage.setItem(key, value);
+                sessionStorage.setItem('myNumber', key);
+                var sessionValue = sessionStorage.getItem(key);
+                var parsedValue = JSON.parse(sessionValue)
+
+                m.setHandler("send", no => {
+                    window.location.href = "/online";
+
+                });
+
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

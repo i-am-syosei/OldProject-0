@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf8">
+
+    <link rel="stylesheet" href="../static/css/mulch.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="p1">
+            <h1>PLAYER1</h1>
+            <p id="p1Point">0</p>
+        </div>
+
+        <div id="container"></div>
+
+        <div class="p2">
+            <h1>PLAYER2</h1>
+            <p id="p2Point">0</p>
+        </div>
+    </div>
+    <script src="https://fungo.kcg.edu/madoi-20231023/js/madoi.js"></script>
+    <script>
+        window.addEventListener("load", () => {
+            const receivedNumber = sessionStorage.getItem('myNumber');
+            var sessionValue = sessionStorage.getItem(receivedNumber);
+
+            //引いた枚数
+            let count = 0
+            //プレイヤー
+            const receivedPlayer = sessionStorage.getItem('identification');
+            // console.log(receivedPlayer)
+            let player1 = null;
+            let player2 = null;
+            let playing = "firstPlayer";
+
+            //プレイヤーが引いた枚数
+            let player1point = 0;
+            let player2point = 0;
+
+            var visibleCards = 0;
+
+            const suits = ['s', 'd'];
+            const m = new madoi.Madoi("imageflip-" + receivedNumber);
+            const container = document.getElementById('container');
+            const cards = [];
+
+            // 選択中のカードを保持する変数
+            let selectedCards = [];
+            let flippedCards = 0;
+            // カードの配列を作成
+            var come = ""
+            // if (receivedPlayer == "secondPlayer") {
+            //     m.send("join", come);
+            // }
+            // m.setHandler("join", come => {
+            if (receivedPlayer == "firstPlayer") {
+                player1 = "player";
+                console.log("It's player1's turn");
+                var parsedValue = JSON.parse(sessionValue).shuffledArray;
+                console.log(parsedValue)
+                m.send("list", parsedValue);
+
+                mainAction(parsedValue);
+
+            }
+            // });
+            if (receivedPlayer == "secondPlayer") {
+                m.setHandler("list", parsedValue => {
+                    console.log(parsedValue)
+                    mainAction(parsedValue);
+                });
+            }
+            // シャッフルされた順序でカードを生成してコンテナーに追加
+            function mainAction(parsedValue) {
+                parsedValue.forEach((card, index) => {
+                    const imgElement = document.createElement('img');
+                    imgElement.id = 'card' + card.suit + card.number;
+                    imgElement.setAttribute('data-no', card.suit + card.number);
+                    imgElement.setAttribute('data-num', + card.number);
+                    imgElement.setAttribute('data-state', 'ura');
+                    imgElement.src = '../static/css/images/cardback.jpg'; // 裏面の画像
+                    imgElement.width = 100;
+
+                    container.appendChild(imgElement);
+
+                    document.getElementById("card" + card.suit + card.number).addEventListener("click", e => {
+                        m.setHandler("turn", no => {
+                            const currentPlayer = playing;
+                            console.log(currentPlayer);
+                        });
+                        if (playing == "firstPlayer" && receivedPlayer == "firstPlayer") {
+                            if (flippedCards < 2 && selectedCards.length < 2) {
+                                const clickedCard = e.target;
+                                const cardData = clickedCard.getAttribute('data-no');
+
+                                // カードをめくる処理
+                                m.send("flip", cardData);
+
+
+                            }
+                        } else if (playing == "secondPlayer" && receivedPlayer == "secondPlayer") {
+                            if (flippedCards < 2) {
+                                const clickedCard = e.target;
+                                const cardData = clickedCard.getAttribute('data-no');
+
+                                // カードをめくる処理
+                                m.send("flip", cardData);
+
+                            } else {
+                                ;
+                            }
+                        }
+                    });
+                });
+            }
+            m.setHandler("flip", no => {
+                const card = document.querySelector(`img[data-no='${no}']`);
+                const state = card.getAttribute("data-state");
+
+                if (state === "ura") {
+                    card.setAttribute("data-state", "omote");
+                    card.src = "../static/images/" + no + ".png";
+
+                    // カードが1枚目の場合、選択中のカードリストに追加
+                    if (selectedCards.length === 0) {
+                        selectedCards.push(card);
+                        flippedCards++;
+                    } else if (selectedCards.length === 1) {
+                        // カードが2枚目の場合、比較してペアかどうか判定
+                        const [card1] = selectedCards;
+                        flippedCards++;
+
+                        if (card.getAttribute('data-num') === card1.getAttribute('data-num')) {
+                            // ペアが揃った場合の処理
+                            setTimeout(() => {
+                                flipCardHidden(card);
+                                flipCardHidden(card1);
+                                count++;
+                                if (playing == "firstPlayer") {
+                                    player1point++;
+                                } else if (playing == "secondPlayer") {
+                                    player2point++;
+                                }
+                                if (flippedCards == 2) {
+                                    flippedCards = 0;
+                                }
+                                document.getElementById('p1Point').innerHTML = player1point;
+                                document.getElementById('p2Point').innerHTML = player2point;
+                                //checkGameClear();
+                                if (count == 16) {
+                                    checkGameClear();
+                                }
+                            }, 1000);  // ペアが揃った瞬間の表示時間
+                        } else {
+                            // ペアが揃わなかった場合の処理
+                            setTimeout(() => {
+                                flipCardBack(card);
+                                flipCardBack(card1);
+                                if (playing == "firstPlayer") {
+                                    player1 = null;
+                                    player2 = "player";
+                                    playing = "secondPlayer";
+                                    console.log("It's player2's turn" + playing);
+                                } else if (playing == "secondPlayer") {
+                                    player1 = "player";
+                                    player2 = null;
+                                    playing = "firstPlayer";
+                                    console.log("It's player1's turn");
+                                }
+                                if (flippedCards == 2) {
+                                    flippedCards = 0;
+                                }
+                            }, 1000);  // ペアが揃わなかった瞬間の表示時間
+                            m.send("turn", playing);
+                        }
+
+                        selectedCards = [];
+                    }
+                }
+            });
+
+            function flipCardBack(card) {
+                card.setAttribute("data-state", "ura");
+                card.src = "../static/css/images/cardback.jpg";
+            }
+
+            function flipCardHidden(card) {
+                card.setAttribute("data-state", "ura");
+                card.style.visibility = "hidden";
+
+            }
+
+            function checkGameClear() {
+                sessionStorage.setItem('result1', player1point);
+                sessionStorage.setItem('result2', player2point);
+                window.location.replace('/result');
+            }
+        });
+    </script>
+</body>
+
+</html>
